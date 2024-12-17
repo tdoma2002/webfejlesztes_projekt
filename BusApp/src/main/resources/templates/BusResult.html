@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Busz adatai</title>
+</head>
+<body>
+    <h2>Busz adatai:</h2>
+    <p>Rendszám: <span th:text="${bus.licensePlate}"></span></p>
+    <p>Modell: <span th:text="${bus.model}"></span></p>
+    <p>Kapacitás: <span th:text="${bus.capacity}"></span></p>
+    
+    <hr>
+    <h3>Műveletek:</h3>
+    <a th:href="@{/bus/edit/{id}(id=${bus.id})}">Módosítás</a> |
+    <a th:href="@{/bus/delete/{id}(id=${bus.id})}" 
+       onclick="return confirm('Biztosan törölni szeretnéd ezt a buszt?');">
+        Törlés
+    </a>
+    <br><br>
+    <a th:href="@{/bus}">Vissza a buszok listájához</a>
+</body>
+</html>

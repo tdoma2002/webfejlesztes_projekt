@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Busz hozzáadása</title>
+</head>
+<body>
+    <h2>Új busz felvétele</h2>
+    <form action="#" th:action="@{/bus}" th:object="${bus}" method="post">
+        <label>Rendszám:</label>
+        <input type="text" th:field="*{licensePlate}" /><br>
+
+        <label>Modell:</label>
+        <input type="text" th:field="*{model}" /><br>
+
+        <label>Kapacitás:</label>
+        <input type="number" th:field="*{capacity}" /><br>
+
+        <button type="submit">Elküldés</button>
+    </form>
+</body>
+</html>

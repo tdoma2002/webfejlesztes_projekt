@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Buszok Listája</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #444;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #0078D4;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .actions {
+            text-align: center;
+        }
+
+        .actions a {
+            display: block; /* Blokkszintűvé teszi a linkeket */
+            margin: 5px 0; /* Távolság a linkek között */
+            padding: 8px;
+            background-color: #0078D4;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .actions a:hover {
+            background-color: #005bb5;
+        }
+    </style>
+</head>
+<body>
+    <h1>Buszok Listája</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Rendszám</th>
+                <th>Modell</th>
+                <th>Kapacitás</th>
+                <th>Akciók</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="bus : ${buses}">
+                <td th:text="${bus.licensePlate}"></td>
+                <td th:text="${bus.model}"></td>
+                <td th:text="${bus.capacity}"></td>
+                <td class="actions">
+                    <a th:href="@{/bus/edit/{id}(id=${bus.id})}">Módosítás</a>
+                    <a th:href="@{/bus/delete/{id}(id=${bus.id})}">Törlés</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

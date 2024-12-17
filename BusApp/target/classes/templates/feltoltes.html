@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BusOn</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        #successMessage {
+            color: green;
+            text-align: center;
+            margin: 10px 0;
+            background-color: #e6ffe6;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .doboz1 {
+            background-color: #0078D4;
+            padding: 10px 20px;
+        }
+
+        .menu {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu li {
+            margin: 0 10px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            padding: 10px 15px;
+            transition: background-color 0.3s;
+        }
+
+        .menu a:hover {
+            background-color: #005bb5;
+            border-radius: 5px;
+        }
+
+        .doboz3 {
+            background-color: white;
+            width: 50%;
+            margin: 20px auto;
+            padding: 20px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .doboz3 h2 {
+            text-align: center;
+            color: #0078D4;
+            margin-bottom: 20px;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        form input[type="text"],
+        form input[type="number"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        form button {
+            display: block;
+            background-color: #0078D4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 0 auto;
+        }
+
+        form button:hover {
+            background-color: #005bb5;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            setTimeout(function() {
+                let messageElement = document.getElementById("successMessage");
+                if (messageElement) {
+                    messageElement.style.display = "none";
+                }
+            }, 5000);
+        };
+    </script>
+</head>
+<body>
+    <!-- Success message display -->
+    <div id="successMessage" th:if="${message}">
+        <p th:text="${message}"></p>
+    </div>
+
+    <div class="doboz1">
+        <ul class="menu">
+            <li><a href="index.html"><img src="logo4.jpg" alt="BusOn Logo" style="height: 30px;"></a></li>
+            <li><a href="#">Rólunk</a></li>
+            <li><a href="#">Buszaink</a></li>
+            <li><a href="#">Buszrendelés</a></li>
+            <li><a href="#">Buszfeltöltés</a></li>
+            <li><a href="#">Kapcsolat</a></li>
+        </ul>
+    </div>
+
+    <div class="doboz3">
+        <h2>Új busz felvétele</h2>
+        <form action="#" th:action="@{/bus}" th:object="${bus}" method="post">
+            <label for="licensePlate">Rendszám:</label>
+            <input type="text" id="licensePlate" th:field="*{licensePlate}" />
+
+            <label for="model">Modell:</label>
+            <input type="text" id="model" th:field="*{model}" />
+
+            <label for="capacity">Kapacitás:</label>
+            <input type="number" id="capacity" th:field="*{capacity}" />
+
+            <button type="submit">Elküldés</button>
+        </form>
+    </div>
+</body>
+</html>

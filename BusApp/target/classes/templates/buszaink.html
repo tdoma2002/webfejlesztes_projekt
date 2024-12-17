@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Buszaink</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 20px;
+        }
+        .table-container {
+            max-width: 900px;
+            margin: 20px auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table th, table td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+        table thead {
+            background-color: #007BFF;
+            color: #ffffff;
+        }
+        table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        table tbody tr:hover {
+            background-color: #e6f7ff;
+        }
+        th {
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+        td {
+            color: #555;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .action-button {
+            text-decoration: none;
+            padding: 8px 12px;
+            color: white;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            text-align: center;
+        }
+        .edit-button {
+            background-color: #28a745;
+        }
+        .edit-button:hover {
+            background-color: #218838;
+        }
+        .delete-button {
+            background-color: #dc3545;
+        }
+        .delete-button:hover {
+            background-color: #c82333;
+        }
+        .book-button {
+            background-color: #ffc107;
+        }
+        .book-button:hover {
+            background-color: #e0a800;
+        }
+        .cancel-button {
+            background-color: #ff6347;
+        }
+        .cancel-button:hover {
+            background-color: #e04e30;
+        }
+        .navigation {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .nav-button {
+            text-decoration: none;
+            padding: 10px 20px;
+            color: white;
+            background-color: #007BFF;
+            border-radius: 5px;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+        .nav-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Buszaink</h1>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Rendszám</th>
+                    <th>Modell</th>
+                    <th>Kapacitás</th>
+                    <th>Akciók</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="bus : ${buses}">
+                    <td th:text="${bus.licensePlate}"></td>
+                    <td th:text="${bus.model}"></td>
+                    <td th:text="${bus.capacity}"></td>
+                    <td>
+                        <div class="action-buttons">
+                            <a th:href="@{/bus/edit/{id}(id=${bus.id})}" class="action-button edit-button">Módosítás</a>
+                            <a th:href="@{/bus/delete/{id}(id=${bus.id})}" class="action-button delete-button">Törlés</a>
+                            <!-- Lefoglalom gomb -->
+                            <a th:href="@{/bus/book/{id}(id=${bus.id})}" class="action-button book-button" 
+                               th:if="${not bus.isBooked}">Lefoglalom</a>
+                            <!-- Ha már le van foglalva -->
+                            <span th:if="${bus.isBooked}" style="color: #ccc;">Foglalt</span>
+                            <!-- Visszamondás gomb -->
+                            <a th:href="@{/bus/cancel/{id}(id=${bus.id})}" class="action-button cancel-button" 
+                               th:if="${bus.isBooked}">Foglalás törlése</a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="navigation">
+            <a href="/feltoltes" class="nav-button">Új busz hozzáadása</a>
+            <a href="/" class="nav-button">Vissza a főoldalra</a>
+        </div>
+    </div>
+</body>
+</html>
